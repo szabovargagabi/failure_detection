@@ -83,7 +83,7 @@ The training data was split into training and validation sets. Model performance
 
 The original problem description proposes evaluating misclassifications with the following cost function:
 
-$\text{Cost} = \text{cost}_1 \times FP + \text{cost}_2 \times FN $
+$\text{Cost} = \text{cost}1 \times FP + \text{cost}2 \times FN $
 
 
 where:
