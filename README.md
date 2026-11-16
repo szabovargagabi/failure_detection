@@ -123,6 +123,12 @@ python train.py
 ```
 
 
+For production ready deployment `waitress` is used. Install it with the following command:
+
+```bash
+pip install waitress
+```
+
 Start the prediction service locally by running the following command in the project directory:
 
 ```bash
