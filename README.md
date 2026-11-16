@@ -132,7 +132,7 @@ pip install waitress
 Start the prediction service locally by running the following command in the project directory:
 
 ```bash
-waitress --listen=0.0.0.0:9696 predict:app
+python -m waitress --listen=0.0.0.0:9696 predict:app
 ```
 
 The prediction service will be available on port 9696.
