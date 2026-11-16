@@ -10,6 +10,14 @@ This is a **binary classification problem**. The positive class represents a com
 
 Accurately detecting potential failures can help reduce unnecessary maintenance costs and, more importantly, prevent costly failures from going unnoticed. Since missing an actual failure is considerably more expensive than raising a false alarm, the project uses a cost-based evaluation metric in addition to ROC AUC.
 
+## Clone the Repository
+
+To get a local copy of this project, clone the GitHub repository:
+
+```bash
+git clone https://github.com/szabovargagabi/failure_detection.git
+```
+
 ## Dataset
 
 The project uses the [APS Failure at Scania Trucks dataset](https://www.kaggle.com/datasets/uciml/aps-failure-at-scania-trucks-data-set/data), available on Kaggle.
@@ -21,15 +29,29 @@ The dataset contains two separate files:
 
 The training set contains approximately 1,000 positive examples, making this a highly imbalanced classification problem.
 
+
+
 To run the notebook, download both files from Kaggle and place them in a directory named `data` in the project root:
 
 ```text
-project/
+failure_detection/
+│
 ├── data/
 │   ├── aps_failure_training_set.csv
 │   └── aps_failure_test_set.csv
+│
+├── images/
+│   └── aps-failure-hero.png
+│
+├── Dockerfile
+├── Pipfile
+├── Pipfile.lock
+├── README.md
 ├── notebook.ipynb
-└── ...
+├── predict.py
+├── predict_test.py
+├── train.py
+└── xGboost_model.bin
 ```
 
 ## Data Preparation and EDA
@@ -93,9 +115,40 @@ The selected XGBoost model was trained on the full training dataset and evaluate
 | Classification threshold | **0.015** |
 | Number of boosting rounds | **195** |
 
-## Deployment
+## Local Deployment
 
-The final XGBoost training process was moved from the notebook into `train.py`. Running this script trains the model on the full training dataset and saves the trained model as `xGboost_model.bin`.
+The final XGBoost training process was moved from the notebook into `train.py`. Running this script trains the model on the full training dataset and saves the trained model as `xGboost_model.bin`. To train and save the model use the following script
+
+```bash
+python train.py
+```
+
+
+Start the prediction service locally by running the following command in the project directory:
+
+```bash
+waitress --listen=0.0.0.0:9696 predict:app
+```
+
+The prediction service will be available on port 9696.
+
+Prediction service running:
+
+![](images/local_.png)
+
+To test the Prediction Service open a separate terminal while the prediction service is running and execute:
+
+```bash
+python predict_test.py
+```
+
+The script sends a test request to the locally running prediction service.
+
+Test result:
+
+![](images/local_ans.png)
+
+## Deployment with Docker
 
 ### 1. Train the model
 
@@ -112,6 +165,7 @@ Make sure Docker Desktop is installed and running. Build the image from the proj
 ```bash
 docker build -t failure-prediction .
 ```
+![](images/docker_running.png)
 
 ### 3. Run the Docker container
 
@@ -131,4 +185,4 @@ Open a separate terminal and run:
 python predict_test.py
 ```
 
-This executes the provided test script against the running service.
+This executes the provided test script against the running service. Gives the same results as previously in local deployment. 
