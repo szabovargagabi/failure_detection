@@ -6,7 +6,7 @@
 
 This project focuses on predicting failures in the **Air Pressure System (APS)** of heavy-duty Scania trucks. The goal is to identify whether a truck is likely to experience a component failure in its air pressure system based on operational data.
 
-This is a **binary classification problem**. The positive class represents a component failure, while the negative class represents normal operation.
+This is a **binary classification problem**. The positive class represents a component failure of the APS system, while the negative class represents failures not related to the APS system.
 
 Accurately detecting potential failures can help reduce unnecessary maintenance costs and, more importantly, prevent costly failures from going unnoticed. Since missing an actual failure is considerably more expensive than raising a false alarm, the project uses a cost-based evaluation metric in addition to ROC AUC.
 
